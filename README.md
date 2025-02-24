@@ -31,7 +31,7 @@ Zur Erstkonfiguration wechselt der ESP32 in den AP-Modus und ist als WLAN "EPS32
 Sobald man sich damit verbunden hat, ist unter der IP "192.168.4.1" eine einfache Webkonfiguration möglich. Dort findet man neben den WLAN Einstellungen auch die MQTT-Broker Daten zum eingeben. Nach dem Speichern startet der µC neu und verbindet sich mit dem WLAN sowie dem MQTT-Broker. Der Status dieser Vorgänge ist jeweils auf der seriellen Konsole zu sehen.
 
 ## Hinweis
-Es kann sein, dass nach dem ersten Start keine Daten geliefert werden. Das kann an einer fehlerhaften Modbus Implementierung seitens Marstek liegen, in dem Fall schlägt die CRC-Prüfung fehl. Um das Problem zu umgehen, kann man in der  ModbusMaster.cpp die CRC-Prüfung deaktivieren:
+Es kann sein, dass nach dem ersten Start keine Daten vom Modbus geholt werden können und so auch nicht an MQTT geliefert werden. Das kann an einer fehlerhaften Modbus Implementierung seitens Marstek liegen und ist abhängig von der verwendeten Firmware. In diesen Fällen schlägt die CRC-Prüfung fehl. Um das Problem zu umgehen, kann man in der  ModbusMaster.cpp die CRC-Prüfung deaktivieren:
 
 ```c++
     if (!u8MBStatus && (lowByte(u16CRC) != u8ModbusADU[u8ModbusADUSize - 2] ||
