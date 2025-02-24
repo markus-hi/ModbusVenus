@@ -6,9 +6,7 @@ Dieses Repository ermöglicht das Auslesen von Messdaten aus einem PV-Speicher d
 - [Installation](#installation)
 - [Verwendung](#verwendung)
 - [Konfiguration](#konfiguration)
-- [Beispiel](#beispiel)
-- [Unterstützung und Beiträge](#unterstützung-und-beiträge)
-- [Lizenz](#lizenz)
+
 
 ## Installation
 1. Klone dieses Repository:
