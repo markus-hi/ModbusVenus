@@ -1,12 +1,13 @@
 # ModbusVenus
 
-Dieses Repository ermöglicht das Auslesen von Messdaten aus einem PV-Speicher des Modells Venus E von Marstek. Die Kommunikation erfolgt über das Modbus-Protokoll. Ich habe das unter Visual Studio Code mit dem Platformio Plugin entwickelt.
+Dieses Repository ermöglicht das Auslesen von Messdaten aus einem PV-Speicher des Modells Venus E von Marstek. Die verwendete Hardware ist µC der ESP32 Familie sowie ein RS485 Modul. Die Kommunikation erfolgt über das Modbus-Protokoll. Ich habe das unter Visual Studio Code mit dem Platformio Plugin entwickelt.
 
 ## Inhaltsverzeichnis
 - [Installation](#installation)
 - [Verwendung](#verwendung)
 - [Konfiguration](#konfiguration)
 - [Hinweis](#hinweis)
+- [Prototyp](#prototyp)
 
 
 ## Installation
@@ -40,3 +41,6 @@ Es kann sein, dass nach dem ersten Start keine Daten vom Modbus geholt werden k�
       //u8MBStatus = ku8MBInvalidCRC;
     }
 ```
+## Prototyp
+Anbei ein Foto meines Test-Aufbaus mit einem ESP32 wroom 32 (AZ-Delivery ESP32 Dev Kit C V2) und einem RS485 TTL Adapter.
+![grafik](https://github.com/user-attachments/assets/d77a2b1f-e596-4886-98ad-b293338c03c0)
