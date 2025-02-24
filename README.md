@@ -28,5 +28,4 @@ Zur Erstkonfiguration wechselt der ESP32 in den AP-Modus und ist als WLAN "EPS32
 
 ## Konfiguration
 Sobald man sich damit verbunden hat, ist unter der IP "192.168.4.1" eine einfache Webkonfiguration möglich. Dort findet man neben den WLAN Einstellungen auch die MQTT-Broker Daten zum eingeben. Nach dem Speichern startet der µC neu und verbindet sich mit dem WLAN sowie dem MQTT-Broker. Der Status dieser Vorgänge ist jeweils auf der seriellen Konsole zu sehen.
-```sh
-python read_data.py
+
