@@ -20,6 +20,7 @@ struct Measurement {
     bool isText;
     uint8_t response_size;
     std::map<uint16_t, String> valueMap; // Map für individuelle Textwerte
+    float maxValue;
 };
 
 // Funktion zur Initialisierung der Modbus-Kommunikation

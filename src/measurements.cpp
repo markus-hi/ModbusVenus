@@ -52,6 +52,18 @@ void readAndPublishMeasurements(ModbusMaster& node, PubSubClient& client, Measur
                         measurements[i].value = combinedValue * measurements[i].scaleFactor;
                     }
 
+                    // Plausibilitätsprüfung
+                    if (measurements[i].maxValue > 0 && measurements[i].value > measurements[i].maxValue) {
+                        Serial.print("Warnung: Wert für ");
+                        Serial.print(measurements[i].mqtt_topic_suffix);
+                        Serial.print(" überschreitet maxValue (");
+                        Serial.print(measurements[i].value);
+                        Serial.print(" > ");
+                        Serial.print(measurements[i].maxValue);
+                        Serial.println("), wird ignoriert.");
+                        continue;
+                    }
+
                     // Überprüfen, ob ein individueller Textwert vorhanden ist
                     String outputValue;
                     auto it = measurements[i].valueMap.find(combinedValue);

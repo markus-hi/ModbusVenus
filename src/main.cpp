@@ -5,6 +5,9 @@
 #include <Preferences.h>
 #include "measurements.h"
 #include "measurements_config.h"
+#include <HardwareSerial.h>
+#include <Arduino.h>
+#include "esp_system.h"
 
 // Webserver und NVS
 WebServer server(80);
@@ -181,6 +184,27 @@ void setup() {
   Serial.begin(115200);
   Serial2.begin(115200, SERIAL_8N1, RXD2, TXD2);
 
+  // Grund für den letzten Reset ermitteln
+  esp_reset_reason_t reason = esp_reset_reason();
+  String reasonStr;
+
+  switch (reason) {
+    case ESP_RST_POWERON: reasonStr = "Power-On Reset"; break;
+    case ESP_RST_EXT: reasonStr = "External Reset"; break;
+    case ESP_RST_SW: reasonStr = "Software Reset"; break;
+    case ESP_RST_PANIC: reasonStr = "Panic (Crash)"; break;
+    case ESP_RST_INT_WDT: reasonStr = "Interrupt Watchdog"; break;
+    case ESP_RST_TASK_WDT: reasonStr = "Task Watchdog"; break;
+    case ESP_RST_WDT: reasonStr = "Other Watchdog"; break;
+    case ESP_RST_DEEPSLEEP: reasonStr = "Wake from Deep Sleep"; break;
+    case ESP_RST_BROWNOUT: reasonStr = "Brownout"; break;
+    case ESP_RST_SDIO: reasonStr = "SDIO Reset"; break;
+    default: reasonStr = "Unknown"; break;
+  }
+
+  Serial.print("Letzter Resetgrund: ");
+  Serial.println(reasonStr);
+
   pinMode(RS485_DIR, OUTPUT);
   digitalWrite(RS485_DIR, LOW); // Start im Empfangsmodus
 
@@ -207,6 +231,14 @@ void setup() {
   server.onNotFound(handleNotFound);
   server.begin();
   Serial.println("Webserver gestartet.");
+
+  // Optional: per MQTT senden
+  if (client.connect("ESP32Client", mqtt_user.c_str(), mqtt_password.c_str())) {
+    Serial.print("Letzter Resetgrund: ");
+    Serial.println(reasonStr);
+    client.publish("esp32/status/reset_reason", reasonStr.c_str(), true);
+  }
+
 }
 
 void loop() {
